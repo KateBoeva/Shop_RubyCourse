@@ -1,0 +1,65 @@
+/ .product-full-desc
+/   .title = link_to @product.title, @product
+/   .description = @product.description
+/   .price = @product.price
+/   .amount = "На складе: #{@product.amount} шт."
+
+/   .actions
+/     => link_to 'Show', @product
+/     => link_to 'Edit', edit_product_path(@product)
+/     => link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' }
+
+/ .comments
+/   - @product.comments.each do |comment|
+/     = render comment
+/   hr
+/   = render "comments/form", product: @product, comment: @product.comments.new
+
+/ .row
+/   .medium-6.medium-centered.columns
+/     .product-full-desc
+/       .title = link_to @product.title, @product
+/       .description = @product.description
+/       .price = @product.price
+/       .amount = "На складе: #{@product.amount} шт."
+/       .action
+/       	- if @policy.destroy?
+/       		= link_to "Удалить товар", product, method: :delete
+
+
+/     = render "comments/form", product: @product, comment: @comment
+
+/     .comments = render @product.comments
+
+.row
+  .medium-8.medium-centered.columns
+    .product-full-desc
+      .image
+        = image_tag "product-default"
+      .title
+        = link_to product.title, product
+      .description
+        = product.description
+      .price
+        = product.price_in_rur
+      .actions
+        = link_to "КУПИТЬ", "", class: "button"
+      .amount
+        = product.current_amount
+
+
+.row
+  .medium-6.medium-centered.columns
+    = render "comments/form" if user_signed_in?
+    .comments
+      - if product.comments_exists?
+        = render product.comments
+      - else
+        p Комментариев нет
+        p
+          = link_to "Войдите", new_user_session_path
+          |, чтобы оставлять комментарии!
+
+
+
+
